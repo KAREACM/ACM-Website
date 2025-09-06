@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Calendar, 
   Clock, 
@@ -187,6 +187,7 @@ const eventsData: Event[] = [
 // Event Card Component
 interface EventCardProps {
   event: Event;
+  featured?: boolean;
 }
 
 const EventCard: React.FC<EventCardProps> = ({ event }) => {
@@ -403,8 +404,15 @@ const EventsPage: React.FC = () => {
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
   const [selectedType, setSelectedType] = useState<string>('all');
   
-  const upcomingEvents = eventsData.filter(event => event.status === 'upcoming');
-  const pastEvents = eventsData.filter(event => event.status === 'completed');
+  const upcomingEvents = useMemo(() => 
+    eventsData.filter(event => event.status === 'upcoming'), 
+    []
+  );
+  
+  const pastEvents = useMemo(() => 
+    eventsData.filter(event => event.status === 'completed'), 
+    []
+  );
   
   useEffect(() => {
     const currentEvents = activeTab === 'upcoming' ? upcomingEvents : pastEvents;
