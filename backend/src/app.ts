@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { getProjects, createProject } from "./controllers/projectController";
+
 
 const app = express();
 
