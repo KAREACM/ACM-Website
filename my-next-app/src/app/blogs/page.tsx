@@ -31,15 +31,23 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
   cardClassName = ""
 }) => {
   return (
-    <div className={`grid gap-4 ${className}`}>
+    <div className={`grid gap-6 ${className}`}>
       {cards.map((card) => {
         const isSelected = selectedCard === card.id
         return (
           <div
             key={card.id}
-            className={`relative overflow-hidden rounded-2xl border border-white/70 bg-gradient-to-br from-white via-[#E1F1FA]/20 to-white backdrop-blur-lg shadow-xl transition-all duration-300 cursor-pointer hover:shadow-2xl hover:scale-[1.02] ${
-              isSelected ? "shadow-2xl ring-2 ring-[#A8D4EC] bg-gradient-to-br from-white to-[#E1F1FA]/30" : ""
+            className={`relative overflow-hidden rounded-xl bg-white/80 backdrop-blur-sm shadow-lg transition-all duration-500 cursor-pointer hover:shadow-2xl transform hover:-translate-y-2 group ${
+              isSelected ? "shadow-2xl bg-white/90" : ""
             } ${cardClassName}`}
+            style={{
+              border: isSelected 
+                ? 'none' 
+                : '1px solid #e0f2fe',
+              boxShadow: isSelected 
+                ? '0px 0px 15px 2px #3b82f6aa' 
+                : '0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06)'
+            }}
             onClick={() => onSelect(isSelected ? null : card.id)}
           >
             <div className="flex">
@@ -48,26 +56,26 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
                 <img
                   src={card.image}
                   alt={card.title}
-                  className="w-full h-full object-cover rounded-l-2xl"
+                  className="w-full h-full object-cover rounded-l-xl group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#E1F1FA]/20 via-transparent to-[#A8D4EC]/10 rounded-l-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-sky-500/10 via-transparent to-sky-500/5 rounded-l-xl"></div>
               </div>
               
               {/* Content */}
-              <div className="flex-1 p-8">
+              <div className="flex-1 p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-gray-800 mb-4 leading-tight">
+                    <h3 className="text-xl font-bold text-gray-800 mb-3 leading-tight group-hover:text-sky-600 transition-colors duration-300">
                       {card.title}
                     </h3>
                     
-                    <p className="text-gray-600 text-base leading-relaxed mb-5 font-medium">
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
                       {card.description}
                     </p>
                     
                     {/* Category badge */}
                     {card.category && (
-                      <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#E1F1FA] to-[#A8D4EC] text-gray-700 rounded-full text-sm font-semibold border border-white shadow-md">
+                      <span className="inline-block px-3 py-1 bg-sky-100 text-sky-800 rounded-full text-sm font-semibold border border-sky-300">
                         {card.category}
                       </span>
                     )}
@@ -75,7 +83,7 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
                   
                   <div className="ml-6 flex flex-col items-center gap-2">
                     <ArrowRight 
-                      className={`w-6 h-6 text-[#A8D4EC] transition-transform duration-300 ${
+                      className={`w-6 h-6 text-sky-500 transition-transform duration-300 ${
                         isSelected ? "rotate-90" : ""
                       }`} 
                     />
@@ -86,20 +94,20 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
                 <div className={`overflow-hidden transition-all duration-500 ${
                   isSelected ? "max-h-96 mt-6" : "max-h-0"
                 }`}>
-                  <div className="pt-6 border-t border-[#E1F1FA]/50">
+                  <div className="pt-6 border-t border-sky-200">
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
-                        <p className="text-gray-600 leading-relaxed mb-6 font-medium">
+                        <p className="text-gray-600 leading-relaxed mb-6">
                           Click "Read More" to explore this topic in detail on Medium and dive deeper into the content.
                         </p>
                         
                         {/* Tags */}
                         {card.tags && card.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-3 mb-6">
+                          <div className="flex flex-wrap gap-2 mb-6">
                             {card.tags.map((tag, index) => (
                               <span
                                 key={index}
-                                className="px-4 py-2 bg-gradient-to-r from-white to-[#E1F1FA]/50 text-gray-600 rounded-full text-sm border border-[#E1F1FA] shadow-sm font-medium"
+                                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
                               >
                                 #{tag}
                               </span>
@@ -112,8 +120,12 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
                         href={card.link} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="ml-6 px-8 py-3 bg-gradient-to-r from-[#A8D4EC] to-[#E1F1FA] text-gray-700 rounded-xl hover:from-[#E1F1FA] hover:to-[#A8D4EC] transition-all duration-300 text-sm font-bold shadow-lg hover:shadow-xl transform hover:scale-105"
+                        className="ml-6 px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-sm font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 border-2 border-blue-400 hover:border-blue-300"
                         onClick={(e) => e.stopPropagation()}
+                        style={{
+                          boxShadow: '0px 0px 20px 1px #3b82f6aa',
+                          textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+                        }}
                       >
                         Read More
                       </a>
@@ -122,6 +134,9 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
                 </div>
               </div>
             </div>
+
+            {/* Hover effect overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-sky-500/0 to-sky-500/0 group-hover:from-sky-500/5 group-hover:to-sky-500/10 transition-all duration-500 pointer-events-none"></div>
           </div>
         )
       })}
@@ -237,115 +252,153 @@ const BlogPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#B3E5FC] via-[#E3F2FD] to-[#81D4FA]">
+    <div className="min-h-screen relative overflow-hidden" style={{
+      background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f1f5f9 100%)'
+    }}>
+      
+      {/* Background Glow Design matching Events Page */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{ zIndex: 0 }}
+      >
+        <div className="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full" style={{
+          background: 'radial-gradient(circle, rgba(147,197,253,0.55) 0%, transparent 70%)',
+          filter: 'blur(100px)',
+        }}></div>
 
+        <div className="absolute -bottom-40 -right-40 w-[550px] h-[550px] rounded-full" style={{
+          background: 'radial-gradient(circle, rgba(59,130,246,0.5) 0%, transparent 70%)',
+          filter: 'blur(100px)',
+        }}></div>
 
+        <div className="absolute top-1/4 right-1/4 w-[350px] h-[350px] rounded-full" style={{
+          background: 'radial-gradient(circle, rgba(191,219,254,0.45) 0%, transparent 70%)',
+          filter: 'blur(90px)',
+        }}></div>
 
-
-      {/* Header */}
-      <div className="border-b border-white/20 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <div className="text-center">
-            <h1 className="text-6xl font-bold bg-gradient-to-r from-black via-gray-800 to-gray-600 bg-clip-text text-transparent mb-4 drop-shadow-sm">
-              KARE ACM BLOGS
-            </h1>
-            <p className="text-2xl text-gray-600 max-w-3xl mx-auto font-light">
-              Discover cutting-edge insights in technology, quantum computing, AI, and more from our student chapter
-            </p>
-          </div>
-        </div>
+        <div className="absolute bottom-1/4 left-1/4 w-[350px] h-[350px] rounded-full" style={{
+          background: 'radial-gradient(circle, rgba(96,165,250,0.45) 0%, transparent 70%)',
+          filter: 'blur(90px)',
+        }}></div>
       </div>
 
-      {/* Search and Filter Section */}
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-2xl shadow-xl border border-white/60 p-8 mb-10">
-
-      
-          <div className="flex flex-col lg:flex-row gap-6">
-            {/* Search Input */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#A8D4EC] w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search blogs by title, description, or tags..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 border border-[#E1F1FA] rounded-xl focus:ring-2 focus:ring-[#A8D4EC] focus:border-[#A8D4EC] outline-none bg-white/80 text-gray-700 placeholder-gray-500 shadow-inner"
-              />
-              {searchTerm && (
-                <button
-                  onClick={() => setSearchTerm("")}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#A8D4EC] hover:text-gray-600 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              )}
+      <div className="relative" style={{zIndex: 10}}>
+        {/* Header */}
+        <div className="px-8 py-16">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center relative">
+              <div className="absolute inset-0 flex items-center justify-center opacity-5">
+                <div className="text-9xl font-black text-sky-200">BLOGS</div>
+              </div>
+              <div className="relative z-10">
+                <h1 className="text-5xl font-black mb-4 leading-tight text-gray-800">
+                  KARE ACM Blogs
+                </h1>
+                <div className="w-32 h-2 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mx-auto mb-6"></div>
+                <p className="text-gray-700 text-xl max-w-3xl mx-auto leading-relaxed">
+                  Discover cutting-edge insights in technology, quantum computing, AI, and more from our student chapter.
+                  <span className="font-semibold"> Stay updated with the latest</span> in tech innovation.
+                </p>
+              </div>
             </div>
-
-            {/* Category Filter */}
-            <div className="flex items-center gap-3">
-              <Filter className="w-5 h-5 text-[#A8D4EC]" />
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-5 py-4 border border-[#E1F1FA] rounded-xl focus:ring-2 focus:ring-[#A8D4EC] focus:border-[#A8D4EC] outline-none bg-white/80 text-gray-700 shadow-inner"
-              >
-                {categories.map(category => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Clear Filters */}
-            {(searchTerm || selectedCategory !== "All") && (
-              <button
-                onClick={clearSearch}
-                className="px-6 py-4 text-[#A8D4EC] hover:text-gray-600 font-medium transition-colors"
-              >
-                Clear Filters
-              </button>
-            )}
           </div>
+        </div>
 
-          {/* Search Results Info */}
-          <div className="mt-6 text-sm text-gray-600 font-medium">
-            {filteredCards.length === blogCards.length ? (
-              `Showing all ${blogCards.length} blogs`
-            ) : (
-              `Found ${filteredCards.length} blog${filteredCards.length !== 1 ? 's' : ''} ${searchTerm ? `matching "${searchTerm}"` : ''} ${selectedCategory !== "All" ? `in ${selectedCategory}` : ''}`
-            )}
+        {/* Search and Filter Section */}
+        <div className="px-8 pb-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-sky-200 p-6 mb-8">
+              <div className="flex flex-col lg:flex-row gap-4">
+                {/* Search Input */}
+                <div className="flex-1 relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-sky-500 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search blogs by title, description, or tags..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 border border-sky-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none bg-white text-gray-700 placeholder-gray-500"
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm("")}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 text-sky-500 hover:text-gray-600 transition-colors"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Category Filter */}
+                <div className="flex items-center gap-3">
+                  <Filter className="w-5 h-5 text-sky-500" />
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    className="px-4 py-3 border border-sky-200 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none bg-white text-gray-700 font-semibold"
+                  >
+                    {categories.map(category => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Clear Filters */}
+                {(searchTerm || selectedCategory !== "All") && (
+                  <button
+                    onClick={clearSearch}
+                    className="px-6 py-3 text-sky-600 hover:text-sky-800 font-semibold transition-colors"
+                  >
+                    Clear Filters
+                  </button>
+                )}
+              </div>
+
+              {/* Search Results Info */}
+              <div className="mt-4 text-sm text-gray-700 font-semibold">
+                {filteredCards.length === blogCards.length ? (
+                  `Showing all ${blogCards.length} blogs`
+                ) : (
+                  `Found ${filteredCards.length} blog${filteredCards.length !== 1 ? 's' : ''} ${searchTerm ? `matching "${searchTerm}"` : ''} ${selectedCategory !== "All" ? `in ${selectedCategory}` : ''}`
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Blog Cards */}
-        {filteredCards.length > 0 ? (
-          <ExpandableCards
-            cards={filteredCards}
-            selectedCard={selectedCard}
-            onSelect={setSelectedCard}
-            className="max-w-4xl mx-auto"
-          />
-        ) : (
-          <div className="text-center py-16">
-            <div className="text-[#A8D4EC] mb-6">
-              <Search className="w-20 h-20 mx-auto mb-6" />
-            </div>
-            <h3 className="text-2xl font-bold text-gray-700 mb-4">
-              No blogs found
-            </h3>
-            <p className="text-gray-600 mb-8 text-lg">
-              Try adjusting your search terms or filters to discover more content
-            </p>
-            <button
-              onClick={clearSearch}
-              className="px-8 py-4 bg-gradient-to-r from-[#A8D4EC] to-[#E1F1FA] text-gray-700 rounded-xl hover:from-[#E1F1FA] hover:to-[#A8D4EC] transition-all duration-300 shadow-lg font-bold transform hover:scale-105"
-            >
-              Clear All Filters
-            </button>
+        <div className="px-8 pb-16">
+          <div className="max-w-6xl mx-auto">
+            {filteredCards.length > 0 ? (
+              <ExpandableCards
+                cards={filteredCards}
+                selectedCard={selectedCard}
+                onSelect={setSelectedCard}
+                className="max-w-4xl mx-auto"
+              />
+            ) : (
+              <div className="text-center py-16">
+                <div className="text-sky-400 mb-6">
+                  <Search className="w-20 h-20 mx-auto mb-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                  No blogs found
+                </h3>
+                <p className="text-gray-600 mb-8 text-lg">
+                  Try adjusting your search terms or filters to discover more content
+                </p>
+                <button
+                  onClick={clearSearch}
+                  className="px-8 py-4 bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition-all duration-300 shadow-lg font-semibold transform hover:scale-105"
+                >
+                  Clear All Filters
+                </button>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

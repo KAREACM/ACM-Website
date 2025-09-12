@@ -113,17 +113,17 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
 
 // Enhanced Section Header Component
 const SectionHeader: React.FC<{title: string, subtitle?: string}> = ({title, subtitle}) => (
-  <div className="text-center mb-16 relative">
+  <div className="text-center mb-8 relative">
     <div className="absolute inset-0 flex items-center justify-center opacity-5">
       <div className="text-9xl font-black text-sky-200">{title.split(' ')[0]}</div>
     </div>
     <div className="relative z-10">
-      <h2 className="text-5xl font-black mb-4 relative text-gray-800">
+      <h2 className="text-4xl font-black mb-4 relative text-gray-800">
         {title}
       </h2>
       <div className="w-24 h-1.5 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mx-auto mb-4"></div>
       {subtitle && (
-        <p className="text-sky-500 text-xl font-medium max-w-2xl mx-auto leading-relaxed">{subtitle}</p>
+        <p className="text-sky-500 text-lg font-medium max-w-2xl mx-auto leading-relaxed">{subtitle}</p>
       )}
     </div>
   </div>
@@ -132,28 +132,69 @@ const SectionHeader: React.FC<{title: string, subtitle?: string}> = ({title, sub
 // Enhanced Demo Component
 export default function TeamDirectory() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-sky-50 to-sky-100 relative overflow-hidden">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-gray-200/5 rounded-full animate-pulse"></div>
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gray-300/8 rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gray-100/10 rounded-full animate-pulse" style={{animationDelay: '4s'}}></div>
+    <div className="min-h-screen relative overflow-hidden" style={{
+      background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f1f5f9 100%)'
+    }}>
+      
+      {/* Professional Light Blue & White Background Elements */}
+      <div 
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: 1,
+          background: `radial-gradient(circle at 20% 20%, rgba(94, 159, 234, 0.25) 0%, transparent 30%),
+          radial-gradient(circle at 80% 80%, rgba(191, 219, 254, 0.20) 0%, transparent 40%),
+          radial-gradient(circle at 40% 60%, rgba(219, 234, 254, 0.18) 0%, transparent 40%)
+
+          `
+        }}
+      >
+        {/* Background Glow Design */}
+<div 
+  className="fixed inset-0 pointer-events-none"
+  style={{ zIndex: 0 }}
+>
+  {/* Large strong glow top-left */}
+  <div className="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full" style={{
+    background: 'radial-gradient(circle, rgba(147,197,253,0.55) 0%, transparent 70%)',
+    filter: 'blur(100px)',
+  }}></div>
+
+  {/* Large strong glow bottom-right */}
+  <div className="absolute -bottom-40 -right-40 w-[550px] h-[550px] rounded-full" style={{
+    background: 'radial-gradient(circle, rgba(59,130,246,0.5) 0%, transparent 70%)',
+    filter: 'blur(100px)',
+  }}></div>
+
+  {/* Medium accent glow top-right */}
+  <div className="absolute top-1/4 right-1/4 w-[350px] h-[350px] rounded-full" style={{
+    background: 'radial-gradient(circle, rgba(191,219,254,0.45) 0%, transparent 70%)',
+    filter: 'blur(90px)',
+  }}></div>
+
+  {/* Medium accent glow bottom-left */}
+  <div className="absolute bottom-1/4 left-1/4 w-[350px] h-[350px] rounded-full" style={{
+    background: 'radial-gradient(circle, rgba(96,165,250,0.45) 0%, transparent 70%)',
+    filter: 'blur(90px)',
+  }}></div>
+</div>
+
+
+
+      
       </div>
 
-      <div className="relative z-10 p-12">
+      <div className="relative p-8" style={{zIndex: 10}}>
         {/* Enhanced Main Header */}
-        <div className="text-center mb-24 relative">
+        <div className="text-center mb-8 relative">
           <div className="absolute inset-0 flex items-center justify-center opacity-5">
             <div className="text-9xl font-black text-sky-200">TEAM</div>
           </div>
           <div className="relative z-10">
-            <h1 className="text-7xl font-black mb-6 leading-tight text-gray-800">
-              Meet Our Wonderful
-              <br />
-              <span className="text-sky-500">Dream Team ✨</span>
+            <h1 className="text-5xl font-black mb-4 leading-tight text-gray-800">
+              Meet Our Wonderful Dream Team ✨
             </h1>
-            <div className="w-32 h-2 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mx-auto mb-8"></div>
-            <p className="text-sky-500 text-2xl max-w-4xl mx-auto leading-relaxed font-medium">
+            <div className="w-32 h-2 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mx-auto mb-6"></div>
+            <p className="text-gray-800 font-bold text-xl max-w-3xl mx-auto leading-relaxed font-medium">
               Discover the talented individuals who make our community exceptional. 
               <span className="text-gray-800 font-bold"> Hover over the cards</span> to connect with them.
             </p>
@@ -161,7 +202,7 @@ export default function TeamDirectory() {
         </div>
 
         {/* Faculty Coordinators Section */}
-        <section className="mb-24">
+        <section className="mb-16">
           <SectionHeader title="Faculty Coordinators" subtitle="Our guiding mentors and visionary leaders" />
           <div className="flex flex-wrap gap-10 justify-center">
             <TeamMemberCard 
@@ -184,7 +225,7 @@ export default function TeamDirectory() {
         </section>
 
         {/* Office Bearers Section */}
-        <section className="mb-24">
+        <section className="mb-20">
           <SectionHeader title="Office Bearers" subtitle="Our executive leadership powerhouse" />
           <div className="flex flex-wrap gap-10 justify-center">
             <TeamMemberCard 
@@ -209,12 +250,12 @@ export default function TeamDirectory() {
         </section>
 
         {/* Core Team Section */}
-        <section className="mb-24">
+        <section className="mb-20">
           <SectionHeader title="Core Team Divisions" />
           
           {/* Media Team */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold text-sky-500 text-center mb-12">📱 Media Team</h3>
+          <div className="mb-16">
+            <h3 className="text-3xl font-bold text-black text-center mb-8">📱 Media Team</h3>
             <div className="flex flex-wrap gap-10 justify-center">
               <TeamMemberCard 
                 name="Sophia Martinez"
@@ -232,8 +273,8 @@ export default function TeamDirectory() {
           </div>
 
           {/* Volunteer Heads */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold text-sky-500 text-center mb-12">🤝 Volunteer Heads</h3>
+          <div className="mb-16">
+            <h3 className="text-3xl font-bold text-black text-center mb-8">🤝 Volunteer Heads</h3>
             <div className="flex flex-wrap gap-10 justify-center">
               <TeamMemberCard 
                 name="Maya Patel"
@@ -251,8 +292,8 @@ export default function TeamDirectory() {
           </div>
 
           {/* Graphics Team */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold text-sky-500 text-center mb-12">🎨 Graphics Team</h3>
+          <div className="mb-16">
+            <h3 className="text-3xl font-bold text-black text-center mb-8">🎨 Graphics Team</h3>
             <div className="flex flex-wrap gap-10 justify-center">
               <TeamMemberCard 
                 name="Zoe Anderson"
@@ -270,8 +311,8 @@ export default function TeamDirectory() {
           </div>
 
           {/* Web Developers */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold text-sky-500 text-center mb-12">💻 Web Developers</h3>
+          <div className="mb-16">
+            <h3 className="text-3xl font-bold text-black text-center mb-8">💻 Web Developers</h3>
             <div className="flex flex-wrap gap-10 justify-center">
               <TeamMemberCard 
                 name="Kanna Pranavi"
@@ -289,8 +330,8 @@ export default function TeamDirectory() {
           </div>
 
           {/* Lens and Edit Team */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold text-sky-500 text-center mb-12">📸 Lens and Edit</h3>
+          <div className="mb-16">
+            <h3 className="text-3xl font-bold text-black text-center mb-8">📸 Lens and Edit</h3>
             <div className="flex flex-wrap gap-10 justify-center">
               <TeamMemberCard 
                 name="Isabella Garcia"
@@ -308,8 +349,8 @@ export default function TeamDirectory() {
           </div>
 
           {/* Content Writers */}
-          <div className="mb-20">
-            <h3 className="text-3xl font-bold text-sky-400 text-center mb-12">✍ Content Writers</h3>
+          <div className="mb-16">
+            <h3 className="text-3xl font-bold text-black text-center mb-8">✍ Content Writers</h3>
             <div className="flex flex-wrap gap-10 justify-center">
               <TeamMemberCard 
                 name="Ava Johnson"
