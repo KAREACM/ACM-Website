@@ -12,9 +12,7 @@ const categorizeEvents = (events: IEvent[]) => {
     const eventDate = new Date(event.date);
     if (eventDate > now) {
       upcoming.push(event);
-    } else if (
-      eventDate.toDateString() === now.toDateString()
-    ) {
+    } else if (eventDate.toDateString() === now.toDateString()) {
       ongoing.push(event);
     } else {
       past.push(event);
