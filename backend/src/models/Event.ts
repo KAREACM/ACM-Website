@@ -4,6 +4,7 @@ export interface IEvent extends Document {
   id: string;
   title: string;
   description: string;
+  date: Date | string;
   image: string;
   startDate: Date;
   endDate: Date;

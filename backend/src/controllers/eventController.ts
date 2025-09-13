@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import Event, { IEvent } from "../models/Event";
 
-// Categorize events into upcoming, ongoing, past
+// Categorize events into upcoming, ongoing, pas
+// t
 const categorizeEvents = (events: IEvent[]) => {
   const now = new Date();
   const upcoming: IEvent[] = [];
