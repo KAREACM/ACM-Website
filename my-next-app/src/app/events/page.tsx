@@ -107,131 +107,164 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image with overlay gradient and badges */}
-      <div className="relative h-48 overflow-hidden">
-        <img 
-          src={event.image} 
-          alt={event.title} 
-          className={`w-full h-full object-cover transition-transform duration-700 ${
-            isHovered ? 'scale-110' : 'scale-100'
-          }`}
-          onError={(e) => {
-            // Fallback image if the provided image fails to load
-            e.currentTarget.src = 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800&h=450&fit=crop';
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-        
-        {/* Colored strip based on event type */}
-        <div className={`absolute top-0 left-0 w-full h-1.5 ${getEventTypeColor(event.eventType)}`}></div>
-        
-        {/* Top badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-2">
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusBadgeClasses(event.status)}`}>
-            {event.status}
-          </span>
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getVisibilityBadgeClasses(event.visibility)}`}>
-            {event.visibility}
-          </span>
-        </div>
-        
-        {/* Date badge */}
-        <div className="absolute top-3 right-3 bg-white rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
-          <div className="w-16 text-center">
-            <div className={`${getEventTypeColor(event.eventType)} text-white text-xs py-1 font-medium`}>
-              {new Date(event.startDate).toLocaleDateString('en-US', {month: 'short'}).toUpperCase()}
-            </div>
-            <div className="py-1 font-bold text-lg text-gray-800">
-              {new Date(event.startDate).getDate()}
-            </div>
-          </div>
-        </div>
-        
-        {/* Bottom badges */}
-        <div className="absolute bottom-3 left-3 flex flex-wrap gap-2">
-          <span className="bg-black/60 text-white px-2 py-1 rounded-md text-xs capitalize font-medium">
-            {event.eventType}
-          </span>
-          <span className={`px-2 py-1 rounded-md text-xs font-semibold ${
-            event.isFree ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-          }`}>
-            {event.isFree ? 'FREE' : `$${event.price || 0}`}
-          </span>
-        </div>
-        
-        {/* Registration info */}
-        <div className="absolute bottom-3 right-3 flex flex-col items-end gap-1">
-          <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-md text-xs font-medium">
-            {event.registrations}/{event.maxCapacity}
-          </span>
-          {spotsRemaining <= 10 && spotsRemaining > 0 && (
-            <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs font-medium">
-              Only {spotsRemaining} spots left!
-            </span>
+      {event.image && (
+        <div className="relative h-48 overflow-hidden">
+          <img 
+            src={event.image} 
+            alt={event.title || 'Event image'} 
+            className={`w-full h-full object-cover transition-transform duration-700 ${
+              isHovered ? 'scale-110' : 'scale-100'
+            }`}
+            onError={(e) => {
+              // Fallback image if the provided image fails to load
+              e.currentTarget.src = 'https://placehold.co/800x450/e2e8f0/4a5568?text=Event';
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          
+          {/* ===== UPDATE START: Conditional Elements on Image ===== */}
+          {/* Each element on the image is now conditional */}
+          
+          {event.eventType && (
+            <div className={`absolute top-0 left-0 w-full h-1.5 ${getEventTypeColor(event.eventType)}`}></div>
           )}
-        </div>
-      </div>
-      
-      {/* Content section */}
-      <div className="p-5">
-        <h3 className="font-bold text-gray-800 mb-3 leading-tight text-lg line-clamp-2">
-          {event.title}
-        </h3>
-        
-        {/* Description - show on all cards but limit lines */}
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-          {event.description}
-        </p>
-        
-        {/* Event details */}
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Calendar size={16} className="text-indigo-500 flex-shrink-0" />
-            <span>{formatDate(event.startDate)} - {formatDate(event.endDate)}</span>
-          </div>
           
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Clock size={16} className="text-indigo-500 flex-shrink-0" />
-            <span>{formatTime(event.startDate)} - {formatTime(event.endDate)}</span>
-          </div>
-          
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <MapPin size={16} className="text-indigo-500 flex-shrink-0" />
-            <span className="truncate">{event.venue}</span>
-          </div>
-          
-          <div className="flex items-center gap-2 text-sm text-gray-600">
-            <Users size={16} className="text-indigo-500 flex-shrink-0" />
-            <span>{event.registrations} registered</span>
-          </div>
-        </div>
-
-        {/* Organizers */}
-        <div className="mb-4">
-          <p className="text-xs text-gray-500 mb-1">Organized by:</p>
-          <div className="flex flex-wrap gap-1">
-            {event.organizers.map((org, index) => (
-              <span key={index} className="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md text-xs">
-                {org}
+          <div className="absolute top-3 left-3 flex flex-col gap-2">
+            {event.status && (
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusBadgeClasses(event.status)}`}>
+                {event.status}
               </span>
-            ))}
-          </div>
-        </div>
-        
-        {/* Tags */}
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-1">
-            {event.tags.slice(0, 3).map((tag, index) => (
-              <span key={index} className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">
-                #{tag}
-              </span>
-            ))}
-            {event.tags.length > 3 && (
-              <span className="text-gray-400 text-xs">
-                +{event.tags.length - 3} more
+            )}
+            {event.visibility && (
+              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getVisibilityBadgeClasses(event.visibility)}`}>
+                {event.visibility}
               </span>
             )}
           </div>
+          
+          {event.startDate && (
+            <div className="absolute top-3 right-3 bg-white rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105">
+              <div className="w-16 text-center">
+                <div className={`${getEventTypeColor(event.eventType)} text-white text-xs py-1 font-medium`}>
+                  {new Date(event.startDate).toLocaleDateString('en-US', {month: 'short'}).toUpperCase()}
+                </div>
+                <div className="py-1 font-bold text-lg text-gray-800">
+                  {new Date(event.startDate).getDate()}
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <div className="absolute bottom-3 left-3 flex flex-wrap gap-2">
+            {event.eventType && (
+              <span className="bg-black/60 text-white px-2 py-1 rounded-md text-xs capitalize font-medium">
+                {event.eventType}
+              </span>
+            )}
+            {event.isFree !== undefined && ( // Check for boolean presence
+              <span className={`px-2 py-1 rounded-md text-xs font-semibold ${
+                event.isFree ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+              }`}>
+                {event.isFree ? 'FREE' : `$${event.price || 'N/A'}`}
+              </span>
+            )}
+          </div>
+          
+          {/* Registration info checks if spotsRemaining was calculable */}
+          {spotsRemaining !== null && (
+            <div className="absolute bottom-3 right-3 flex flex-col items-end gap-1">
+              <span className="bg-white/90 text-gray-800 px-2 py-1 rounded-md text-xs font-medium">
+                {event.registrations}/{event.maxCapacity}
+              </span>
+              {spotsRemaining <= 10 && spotsRemaining > 0 && (
+                <span className="bg-red-100 text-red-800 px-2 py-1 rounded-md text-xs font-medium">
+                  Only {spotsRemaining} spots left!
+                </span>
+              )}
+            </div>
+          )}
+          {/* ===== UPDATE END: Conditional Elements on Image ===== */}
         </div>
+      )}
+      {/* ===== UPDATE END: Conditional Image Rendering ===== */}
+      
+      {/* Content section */}
+      <div className="p-5">
+        {/* ===== UPDATE START: Conditional Content Rendering ===== */}
+        {event.title && (
+          <h3 className="font-bold text-gray-800 mb-3 leading-tight text-lg line-clamp-2">
+            {event.title}
+          </h3>
+        )}
+        
+        {event.description && (
+          <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+            {event.description}
+          </p>
+        )}
+        
+        <div className="space-y-2 mb-4">
+          {event.startDate && event.endDate && (
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <Calendar size={16} className="text-indigo-500 flex-shrink-0" />
+              <span>{formatDate(event.startDate)} - {formatDate(event.endDate)}</span>
+            </div>
+          )}
+          
+          {event.startDate && event.endDate && (
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <Clock size={16} className="text-indigo-500 flex-shrink-0" />
+              <span>{formatTime(event.startDate)} - {formatTime(event.endDate)}</span>
+            </div>
+          )}
+          
+          {event.venue && (
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <MapPin size={16} className="text-indigo-500 flex-shrink-0" />
+              <span className="truncate">{event.venue}</span>
+            </div>
+          )}
+          
+          {event.registrations != null && ( // Check for number existence
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <Users size={16} className="text-indigo-500 flex-shrink-0" />
+              <span>{event.registrations} registered</span>
+            </div>
+          )}
+        </div>
+
+        {/* Check that organizers is an array with items before mapping */}
+        {event.organizers && event.organizers.length > 0 && (
+          <div className="mb-4">
+            <p className="text-xs text-gray-500 mb-1">Organized by:</p>
+            <div className="flex flex-wrap gap-1">
+              {event.organizers.map((org, index) => (
+                <span key={index} className="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md text-xs">
+                  {org}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        
+        {/* Check that tags is an array with items before mapping */}
+        {event.tags && event.tags.length > 0 && (
+          <div className="mb-4">
+            <div className="flex flex-wrap gap-1">
+              {event.tags.slice(0, 3).map((tag, index) => (
+                <span key={index} className="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs">
+                  #{tag}
+                </span>
+              ))}
+              {event.tags.length > 3 && (
+                <span className="text-gray-400 text-xs">
+                  +{event.tags.length - 3} more
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+        {/* ===== UPDATE END: Conditional Content Rendering ===== */}
       </div>
       
       {/* Action buttons */}
@@ -239,14 +272,15 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         <button className="text-sm text-indigo-600 font-medium hover:text-indigo-800 transition-colors duration-300">
           Learn more
         </button>
-        <button className={`text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 ${
-          event.status === 'past' 
-            ? 'bg-gray-400 cursor-not-allowed' 
-            : spotsRemaining === 0
-            ? 'bg-red-500 cursor-not-allowed'
-            : 'bg-indigo-600 hover:bg-indigo-700 transform hover:scale-105 shadow-md hover:shadow-lg'
-        }`}
-        disabled={event.status === 'past' || spotsRemaining === 0}
+        <button 
+          className={`text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-300 ${
+            event.status === 'past' 
+              ? 'bg-gray-400 cursor-not-allowed' 
+              : spotsRemaining === 0
+              ? 'bg-red-500 cursor-not-allowed'
+              : 'bg-indigo-600 hover:bg-indigo-700 transform hover:scale-105 shadow-md hover:shadow-lg'
+          }`}
+          disabled={event.status === 'past' || spotsRemaining === 0}
         >
           {event.status === 'past' 
             ? 'Event Ended' 
