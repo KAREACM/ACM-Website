@@ -154,7 +154,7 @@ const BlogPage: React.FC = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/blogs") // adjust if proxy is set
+        const res = await fetch("http://localhost:5005/api/blogs") // adjust if proxy is set
         const data = await res.json()
         setBlogs(data)
       } catch (err) {
