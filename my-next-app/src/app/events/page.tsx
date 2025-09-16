@@ -1,4 +1,6 @@
 'use client';
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
@@ -23,7 +25,7 @@ interface Event {
   id: string;
   title: string;
   description: string;
-  image: string;
+  images: string[];
   startDate: string;
   endDate: string;
   venue: string;
@@ -99,6 +101,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
   };
 
   const spotsRemaining = event.maxCapacity - event.registrations;
+  const [currentImage, setCurrentImage] = useState(0);
   
   return (
     <div 
@@ -107,23 +110,52 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image with overlay gradient and badges */}
-      {event.image && (
-        <div className="relative h-48 overflow-hidden">
-          <img 
-            src={event.image} 
-            alt={event.title || 'Event image'} 
-            className={`w-full h-full object-cover transition-transform duration-700 ${
-              isHovered ? 'scale-110' : 'scale-100'
-            }`}
-            onError={(e) => {
-              // Fallback image if the provided image fails to load
-              e.currentTarget.src = 'https://placehold.co/800x450/e2e8f0/4a5568?text=Event';
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+      {event.images && event.images.length > 0 && (
+      <div className="relative h-48 overflow-hidden">
+        <img 
+          src={event.images[currentImage]} 
+          alt={event.title || 'Event image'} 
+          className={`w-full h-full object-cover transition-transform duration-700 ${
+            isHovered ? 'scale-110' : 'scale-100'
+          }`}
+          onError={(e) => {
+            e.currentTarget.src = 'https://placehold.co/800x450/e2e8f0/4a5568?text=Event';
+          }}
+        />
+
+        {/* Show controls only if more than one image */}
+        {event.images.length > 1 && (
+          <>
+            {/* Left arrow */}
+            <button 
+              className="absolute top-1/2 left-2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-1 rounded-md"
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentImage((prev) => 
+                  prev === 0 ? event.images.length - 1 : prev - 1
+                );
+              }}
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* Right arrow */}
+            <button 
+              className="absolute top-1/2 right-2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-1 rounded-md"
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentImage((prev) => 
+                  prev === event.images.length - 1 ? 0 : prev + 1
+                );
+              }}
+            >
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
           
-          {/* ===== UPDATE START: Conditional Elements on Image ===== */}
-          {/* Each element on the image is now conditional */}
+          // {/* ===== UPDATE START: Conditional Elements on Image ===== */}
+          // {/* Each element on the image is now conditional */}
           
           {event.eventType && (
             <div className={`absolute top-0 left-0 w-full h-1.5 ${getEventTypeColor(event.eventType)}`}></div>
@@ -165,7 +197,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
               <span className={`px-2 py-1 rounded-md text-xs font-semibold ${
                 event.isFree ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
               }`}>
-                {event.isFree ? 'FREE' : `$${event.price || 'N/A'}`}
+                {event.isFree ? 'FREE' : `Rs ${event.price || 'N/A'}`}
               </span>
             )}
           </div>
@@ -341,7 +373,7 @@ const EventsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // API configuration - adjust this to match your backend URL
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5005/api';
 
   // Fetch events from backend
   const fetchEvents = async () => {

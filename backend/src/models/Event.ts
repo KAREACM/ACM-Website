@@ -5,7 +5,7 @@ export interface IEvent extends Document {
   title: string;
   description: string;
   date: Date | string;
-  image: string;
+  images: string[];
   startDate: Date;
   endDate: Date;
   venue: string;
@@ -25,7 +25,7 @@ const EventSchema: Schema = new Schema<IEvent>(
     id: { type: String, required: true, unique: true },
     title: { type: String, required: true },
     description: { type: String, required: true },
-    image: { type: String, required: true },
+    images: { type: [String], required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     venue: { type: String, required: true },
