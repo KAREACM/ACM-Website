@@ -23,14 +23,14 @@ app.get("/", (_req: Request, res: Response) => {
 console.log("awardRoutes:", awardRoutes);
 console.log("blogRoutes:", blogRoutes);
 console.log("eventRoutes:", eventRoutes);
-console.log("galleryRoutes:", galleryRoutes);
+// console.log("galleryRoutes:", galleryRoutes);
 console.log("photoRoutes:", photoRoutes);
 
 // Register all routes
 app.use("/api/awards", awardRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/events", eventRoutes);
-app.use("/api/gallery", galleryRoutes);
+// app.use("/api/gallery", galleryRoutes);
 app.use("/api/photos", photoRoutes);
 
 // Blog routes
