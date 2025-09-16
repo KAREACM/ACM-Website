@@ -5,8 +5,12 @@ import cors from "cors";
 import awardRoutes from "./routes/awardRoutes";
 import blogRoutes from "./routes/blogRoutes";
 import eventRoutes from "./routes/eventRoutes";
-// import galleryRoutes from "./routes/galleryRoutes";
-import photoRoutes from "./routes/photoRoutes";
+// <<<<<<< Gallery
+// // import galleryRoutes from "./routes/galleryRoutes";
+// import photoRoutes from "./routes/photoRoutes";
+// =======
+// import blogRoutes from "./routes/blogRoutes"; // ✅ Import blog routes
+// >>>>>>> main
 
 const app: Application = express();
 
@@ -32,5 +36,8 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/gallery", galleryRoutes);
 app.use("/api/photos", photoRoutes);
+
+// Blog routes
+app.use("/api/blogs", blogRoutes); 
 
 export default app;

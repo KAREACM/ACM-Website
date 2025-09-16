@@ -1,4 +1,3 @@
-import express, { Application } from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import app from "./app";
@@ -14,7 +13,8 @@ const startServer = async (): Promise<void> => {
 
     // Start Express server
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
+      console.log(`✅ MongoDB connected`);
+      console.log(`🚀 Server running at: http://localhost:${PORT}`);
     });
   } catch (error) {
     console.error("❌ Failed to start server:", error);

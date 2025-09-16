@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
@@ -10,6 +10,7 @@ const ContactPage: React.FC = () => {
     subject: '',
     message: ''
   });
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbyDc_I8NlPtTBVuXeBvfpfTzlQFYri0gzGyum34uP6qJhq3RcEpHGQgiK0O7UnU_V0C/exec';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -19,10 +20,21 @@ const ContactPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+
+    try {
+      await fetch(scriptURL, {
+        method: 'POST',
+        body: new FormData(e.currentTarget)
+      });
+
+      alert('✅ Thank you! Form submitted successfully.');
+      setFormData({ name: '', email: '', subject: '', message: '' }); // clear form
+    } catch (error) {
+      console.error('Error!', error);
+      alert('❌ There was an error submitting the form.');
+    }
   };
 
   return (
@@ -47,54 +59,54 @@ const ContactPage: React.FC = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section className="py-20 bg-blue-50">
+      <section className="py-20 bg-sky-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <div>
-              <h2 className="text-4xl font-bold text-blue-900 mb-8">
-                <span className="underline decoration-blue-500 decoration-4">Contact Us</span>
+              <h2 className="text-4xl font-bold text-gray-900 mb-8">
+                <span className="underline decoration-sky-500 decoration-4">Contact Us</span>
               </h2>
               
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-2xl font-semibold text-blue-900 mb-4">
+                  <h3 className="text-2xl font-semibold text-gray-800 mb-4">
                     KALASALINGAM ACADEMY<br />
                     OF RESEARCH AND<br />
                     EDUCATION
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-start space-x-3">
-                      <MapPin className="w-5 h-5 text-blue-600 mt-1" />
-                      <p className="text-blue-700">
+                      <MapPin className="w-5 h-5 text-sky-600 mt-1" />
+                      <p className="text-gray-700">
                         Krishnankoil, Srivilliputhur, Tamil Nadu<br />
                         626126
                       </p>
                     </div>
 
                     <div className="flex items-center space-x-3">
-                      <Mail className="w-5 h-5 text-blue-600" />
-                      <p className="text-blue-700">kareacm@klu.ac.in</p>
+                      <Mail className="w-5 h-5 text-sky-600" />
+                      <p className="text-gray-700">kareacm@klu.ac.in</p>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t border-blue-200 pt-8">
-                  <h4 className="text-xl font-semibold text-blue-900 mb-4">
+                <div className="border-t border-sky-200 pt-8">
+                  <h4 className="text-xl font-semibold text-gray-800 mb-4">
                     Association for<br />
                     Computing Machinery
                   </h4>
-                  <p className="text-blue-700 mb-4">KARE ACM Student Chapter</p>
+                  <p className="text-gray-600 mb-4">KARE ACM Student Chapter</p>
                 </div>
               </div>
             </div>
 
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-blue-100">
-              <h3 className="text-2xl font-semibold text-blue-900 mb-6">Send us a message</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="bg-white rounded-2xl p-8 shadow-lg border border-sky-100">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-6">Send us a message</h3>
+              <form method='post' name='contact-form' onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-blue-800 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                     Full Name
                   </label>
                   <input
@@ -103,14 +115,14 @@ const ContactPage: React.FC = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-sky-200 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-500 outline-none transition-colors"
                     placeholder="Your full name"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-blue-800 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
                   <input
@@ -119,14 +131,14 @@ const ContactPage: React.FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-sky-200 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-500 outline-none transition-colors"
                     placeholder="your.email@example.com"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-blue-800 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
                     Subject
                   </label>
                   <input
@@ -135,14 +147,14 @@ const ContactPage: React.FC = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 outline-none transition-colors"
+                    className="w-full px-4 py-3 border-2 border-sky-200 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-500 outline-none transition-colors"
                     placeholder="What is this about?"
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-blue-800 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                     Message
                   </label>
                   <textarea
@@ -151,16 +163,16 @@ const ContactPage: React.FC = () => {
                     rows={5}
                     value={formData.message}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border-2 border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-blue-500 outline-none transition-colors resize-none"
+                    className="w-full px-4 py-3 border-2 border-sky-200 rounded-lg focus:ring-2 focus:ring-sky-400 focus:border-sky-500 outline-none transition-colors resize-none"
                     placeholder="Tell us more about your inquiry..."
                     required
                   ></textarea>
                 </div>
 
                 <button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center space-x-2 shadow-md hover:shadow-lg"
-                >
+                   type="submit"
+                    className="w-full bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-600 hover:to-sky-700 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center space-x-2 shadow-md hover:shadow-xl transform hover:scale-105 cursor-pointer"
+                  >
                   <span>SUBMIT</span>
                   <Send className="w-5 h-5" />
                 </button>
