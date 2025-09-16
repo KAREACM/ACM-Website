@@ -6,6 +6,7 @@ import awardRoutes from "./routes/awardRoutes";
 import eventRoutes from "./routes/eventRoutes";
 import photoRoutes from "./routes/photoRoutes";
 import blogRoutes from "./routes/blogRoutes"; 
+import teamRoutes from "./routes/teamRoutes";
 // import galleryRoutes from "./routes/galleryRoutes";
 
 const app: Application = express();
@@ -32,6 +33,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/events", eventRoutes);
 // app.use("/api/gallery", galleryRoutes);
 app.use("/api/photos", photoRoutes);
+app.use("/api/teams", teamRoutes);
 
 // Blog routes
 app.use("/api/blogs", blogRoutes); 
