@@ -3,14 +3,10 @@ import cors from "cors";
 
 // Import route files
 import awardRoutes from "./routes/awardRoutes";
-import blogRoutes from "./routes/blogRoutes";
 import eventRoutes from "./routes/eventRoutes";
-// <<<<<<< Gallery
-// // import galleryRoutes from "./routes/galleryRoutes";
-// import photoRoutes from "./routes/photoRoutes";
-// =======
-// import blogRoutes from "./routes/blogRoutes"; // ✅ Import blog routes
-// >>>>>>> main
+import photoRoutes from "./routes/photoRoutes";
+import blogRoutes from "./routes/blogRoutes"; 
+// import galleryRoutes from "./routes/galleryRoutes";
 
 const app: Application = express();
 
