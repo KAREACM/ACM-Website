@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 
 interface TeamMemberCardProps {
   name?: string;
@@ -131,242 +132,65 @@ const SectionHeader: React.FC<{title: string, subtitle?: string}> = ({title, sub
 
 // Enhanced Demo Component
 export default function TeamDirectory() {
+  const [teams, setTeams] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5005/api/teams") // 🔑 fetch from backend
+      .then(res => res.json())
+      .then(data => {
+        setTeams(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Error fetching teams:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  // Group members by category
+  const groupedTeams = teams.reduce((acc: any, member: any) => {
+    if (!acc[member.category]) acc[member.category] = [];
+    acc[member.category].push(member);
+    return acc;
+  }, {});
+
+  if (loading) return <p className="text-center text-lg">Loading team members...</p>;
+
   return (
     <div className="min-h-screen relative overflow-hidden" style={{
       background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f1f5f9 100%)'
     }}>
-      
-      {/* Professional Light Blue & White Background Elements */}
-      <div 
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          zIndex: 1,
-          background: `radial-gradient(circle at 20% 20%, rgba(94, 159, 234, 0.25) 0%, transparent 30%),
-          radial-gradient(circle at 80% 80%, rgba(191, 219, 254, 0.20) 0%, transparent 40%),
-          radial-gradient(circle at 40% 60%, rgba(219, 234, 254, 0.18) 0%, transparent 40%)
-
-          `
-        }}
-      >
-        {/* Background Glow Design */}
-<div 
-  className="fixed inset-0 pointer-events-none"
-  style={{ zIndex: 0 }}
->
-  {/* Large strong glow top-left */}
-  <div className="absolute -top-40 -left-40 w-[550px] h-[550px] rounded-full" style={{
-    background: 'radial-gradient(circle, rgba(147,197,253,0.55) 0%, transparent 70%)',
-    filter: 'blur(100px)',
-  }}></div>
-
-  {/* Large strong glow bottom-right */}
-  <div className="absolute -bottom-40 -right-40 w-[550px] h-[550px] rounded-full" style={{
-    background: 'radial-gradient(circle, rgba(59,130,246,0.5) 0%, transparent 70%)',
-    filter: 'blur(100px)',
-  }}></div>
-
-  {/* Medium accent glow top-right */}
-  <div className="absolute top-1/4 right-1/4 w-[350px] h-[350px] rounded-full" style={{
-    background: 'radial-gradient(circle, rgba(191,219,254,0.45) 0%, transparent 70%)',
-    filter: 'blur(90px)',
-  }}></div>
-
-  {/* Medium accent glow bottom-left */}
-  <div className="absolute bottom-1/4 left-1/4 w-[350px] h-[350px] rounded-full" style={{
-    background: 'radial-gradient(circle, rgba(96,165,250,0.45) 0%, transparent 70%)',
-    filter: 'blur(90px)',
-  }}></div>
-</div>
-
-
-
-      
-      </div>
-
-      <div className="relative p-8" style={{zIndex: 10}}>
-        {/* Enhanced Main Header */}
-        <div className="text-center mb-8 relative">
-          <div className="absolute inset-0 flex items-center justify-center opacity-5">
-            <div className="text-9xl font-black text-sky-200">TEAM</div>
-          </div>
-          <div className="relative z-10">
-            <h1 className="text-5xl font-black mb-4 leading-tight text-gray-800">
-              Meet Our Wonderful Dream Team ✨
-            </h1>
-            <div className="w-32 h-2 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mx-auto mb-6"></div>
-            <p className="text-gray-800 font-bold text-xl max-w-3xl mx-auto leading-relaxed font-medium">
-              Discover the talented individuals who make our community exceptional. 
-              <span className="text-gray-800 font-bold"> Hover over the cards</span> to connect with them.
-            </p>
-          </div>
+      {/* MAIN HEADER */}
+      <div className="relative p-8" style={{ zIndex: 10 }}>
+        <div className="text-center mb-12 relative">
+          <h1 className="text-5xl font-black mb-4 text-gray-800">Meet Our Wonderful Dream Team ✨</h1>
+          <div className="w-32 h-2 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mx-auto mb-6"></div>
+          <p className="text-gray-800 text-xl max-w-3xl mx-auto leading-relaxed font-medium">
+            Discover the talented individuals who make our community exceptional. 
+            <span className="text-gray-800 font-bold"> Hover over the cards</span> to connect with them.
+          </p>
         </div>
 
-        {/* Faculty Coordinators Section */}
-        <section className="mb-16">
-          <SectionHeader title="Faculty Coordinators" subtitle="Our guiding mentors and visionary leaders" />
-          <div className="flex flex-wrap gap-10 justify-center">
-            <TeamMemberCard 
-              name="Dr. Sarah Wilson"
-              designation="Faculty Coordinator & Research Lead"
-              linkedin="linkedin.com/in/sarah-wilson"
-              image="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=500&fit=crop&crop=face"
-              profileLink="https://university.edu/faculty/sarah-wilson"
-              showProfileButton={true}
-            />
-            <TeamMemberCard 
-              name="Prof. Michael Chen"
-              designation="Senior Faculty Coordinator"
-              linkedin="linkedin.com/in/michael-chen"
-              image="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face"
-              profileLink="https://university.edu/faculty/michael-chen"
-              showProfileButton={true}
-            />
-          </div>
-        </section>
-
-        {/* Office Bearers Section */}
-        <section className="mb-20">
-          <SectionHeader title="Office Bearers" subtitle="Our executive leadership powerhouse" />
-          <div className="flex flex-wrap gap-10 justify-center">
-            <TeamMemberCard 
-              name="Alex Johnson"
-              designation="President & Strategic Leader"
-              linkedin="linkedin.com/in/alex-johnson"
-              image="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop&crop=face"
-            />
-            <TeamMemberCard 
-              name="Emma Davis"
-              designation="Vice President & Operations"
-              linkedin="linkedin.com/in/emma-davis"
-              image="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=500&fit=crop&crop=face"
-            />
-            <TeamMemberCard 
-              name="James Wilson"
-              designation="Secretary & Communications"
-              linkedin="linkedin.com/in/james-wilson"
-              image="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=500&fit=crop&crop=face"
-            />
-          </div>
-        </section>
-
-        {/* Core Team Section */}
-        <section className="mb-20">
-          <SectionHeader title="Core Team Divisions" />
-          
-          {/* Media Team */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-black text-center mb-8">📱 Media Team</h3>
+        {/* DYNAMIC SECTIONS */}
+        {Object.keys(groupedTeams).map((category) => (
+          <section key={category} className="mb-20">
+            <SectionHeader title={category} />
             <div className="flex flex-wrap gap-10 justify-center">
-              <TeamMemberCard 
-                name="Sophia Martinez"
-                designation="Media Head & Content Strategist"
-                linkedin="linkedin.com/in/sophia-martinez"
-                image="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=500&fit=crop&crop=face"
-              />
-              <TeamMemberCard 
-                name="Ryan Thompson"
-                designation="Media Coordinator & Analytics"
-                linkedin="linkedin.com/in/ryan-thompson"
-                image="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=500&fit=crop&crop=face"
-              />
+              {groupedTeams[category].map((member: any) => (
+                <TeamMemberCard
+                  key={member._id}
+                  name={member.name}
+                  designation={member.designation}
+                  linkedin={member.linkedin}
+                  image={member.image}
+                  profileLink={member.profileLink}
+                  showProfileButton={member.showProfileButton}
+                />
+              ))}
             </div>
-          </div>
-
-          {/* Volunteer Heads */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-black text-center mb-8">🤝 Volunteer Heads</h3>
-            <div className="flex flex-wrap gap-10 justify-center">
-              <TeamMemberCard 
-                name="Maya Patel"
-                designation="Chief Volunteer Coordinator"
-                linkedin="linkedin.com/in/maya-patel"
-                image="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=400&h=500&fit=crop&crop=face"
-              />
-              <TeamMemberCard 
-                name="David Kim"
-                designation="Assistant Volunteer Head"
-                linkedin="linkedin.com/in/david-kim"
-                image="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=500&fit=crop&crop=face"
-              />
-            </div>
-          </div>
-
-          {/* Graphics Team */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-black text-center mb-8">🎨 Graphics Team</h3>
-            <div className="flex flex-wrap gap-10 justify-center">
-              <TeamMemberCard 
-                name="Zoe Anderson"
-                designation="Lead Graphics Designer"
-                linkedin="linkedin.com/in/zoe-anderson"
-                image="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=500&fit=crop&crop=face"
-              />
-              <TeamMemberCard 
-                name="Carlos Rodriguez"
-                designation="Visual Designer & Illustrator"
-                linkedin="linkedin.com/in/carlos-rodriguez"
-                image="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&h=500&fit=crop&crop=face"
-              />
-            </div>
-          </div>
-
-          {/* Web Developers */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-black text-center mb-8">💻 Web Developers</h3>
-            <div className="flex flex-wrap gap-10 justify-center">
-              <TeamMemberCard 
-                name="Kanna Pranavi"
-                designation="Lead Full-Stack Developer"
-                linkedin="linkedin.com/in/kanna-pranavi"
-                image="https://wallpapers.com/images/hd/professional-profile-pictures-1500-x-2100-bvjgzg0cwa8r051t.jpg"
-              />
-              <TeamMemberCard 
-                name="Oliver Brown"
-                designation="Frontend Specialist & UI Expert"
-                linkedin="linkedin.com/in/oliver-brown"
-                image="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=500&fit=crop&crop=face"
-              />
-            </div>
-          </div>
-
-          {/* Lens and Edit Team */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-black text-center mb-8">📸 Lens and Edit</h3>
-            <div className="flex flex-wrap gap-10 justify-center">
-              <TeamMemberCard 
-                name="Isabella Garcia"
-                designation="Photography Director"
-                linkedin="linkedin.com/in/isabella-garcia"
-                image="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=400&h=500&fit=crop&crop=face"
-              />
-              <TeamMemberCard 
-                name="Ethan Moore"
-                designation="Video Editor & Cinematographer"
-                linkedin="linkedin.com/in/ethan-moore"
-                image="https://images.unsplash.com/photo-1507038772120-7fff76f79d79?w=400&h=500&fit=crop&crop=face"
-              />
-            </div>
-          </div>
-
-          {/* Content Writers */}
-          <div className="mb-16">
-            <h3 className="text-3xl font-bold text-black text-center mb-8">✍ Content Writers</h3>
-            <div className="flex flex-wrap gap-10 justify-center">
-              <TeamMemberCard 
-                name="Ava Johnson"
-                designation="Content Writer & Storyteller"
-                linkedin="linkedin.com/in/ava-johnson"
-                image="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=500&fit=crop&crop=face"
-              />
-              <TeamMemberCard 
-                name="Lucas Miller"
-                designation="Technical Writer & Documentation"
-                linkedin="linkedin.com/in/lucas-miller"
-                image="https://images.unsplash.com/photo-1463453091185-61582044d556?w=400&h=500&fit=crop&crop=face"
-              />
-            </div>
-          </div>
-        </section>
+          </section>
+        ))}
       </div>
     </div>
   );
