@@ -19,85 +19,38 @@ interface Award {
 
 const GalleryPage: React.FC = () => {
   // Photos for slideshow
-  const photos: Photo[] = [
-    {
-      id: 1,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",
-      alt: "Mountain landscape memory"
-    },
-    {
-      id: 2,
-      url: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&h=800&fit=crop",
-      alt: "Lake view memory"
-    },
-    {
-      id: 3,
-      url: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop",
-      alt: "Forest path memory"
-    },
-    {
-      id: 4,
-      url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1200&h=800&fit=crop",
-      alt: "Sunset hills memory"
-    },
-    {
-      id: 5,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",
-      alt: "Additional memory"
-    }
-  ];
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [loadingPhotos, setLoadingPhotos] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5005/api/photos")   // ✅ fetch photos from backend
+      .then((res) => res.json())
+      .then((data) => {
+        setPhotos(data);
+        setLoadingPhotos(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching photos:", err);
+        setLoadingPhotos(false);
+      });
+  }, []);
 
   // Awards and achievements data
-  const awards: Award[] = [
-    {
-      id: 1,
-      image: "https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&h=300&fit=crop",
-      title: "Excellence Award 2024",
-      description: "Recognized for outstanding performance and dedication to quality work in technology innovation.",
-      year: "2024",
-      category: "Excellence"
-    },
-    {
-      id: 2,
-      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
-      title: "Innovation Trophy",
-      description: "Awarded for breakthrough solutions and creative problem-solving in software development.",
-      year: "2024",
-      category: "Innovation"
-    },
-    {
-      id: 3,
-      image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=400&h=300&fit=crop",
-      title: "Team Achievement",
-      description: "Celebrating collaborative excellence and teamwork success in multiple projects.",
-      year: "2023",
-      category: "Team"
-    },
-    {
-      id: 4,
-      image: "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&h=300&fit=crop",
-      title: "Leadership Recognition",
-      description: "Honored for exceptional leadership and mentorship qualities in guiding junior developers.",
-      year: "2023",
-      category: "Leadership"
-    },
-    {
-      id: 5,
-      image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop",
-      title: "Annual Certificate",
-      description: "Consistent high performance throughout the entire year with outstanding contributions.",
-      year: "2023",
-      category: "Performance"
-    },
-    {
-      id: 6,
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop",
-      title: "Customer Choice Award",
-      description: "Selected as preferred service provider by our valued clients for exceptional service quality.",
-      year: "2022",
-      category: "Service"
-    }
-  ];
+  const [awards, setAwards] = useState<Award[]>([]);
+  const [loadingAwards, setLoadingAwards] = useState(true);
+
+  useEffect(() => {
+    fetch("http://localhost:5005/api/awards")
+      .then((res) => res.json())
+      .then((data) => {
+        setAwards(data);
+        setLoadingAwards(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching awards:", err);
+        setLoadingAwards(false);
+      });
+  }, []);
 
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
@@ -135,6 +88,9 @@ const GalleryPage: React.FC = () => {
       default: return <Award size={20} className="text-sky-500" />;
     }
   };
+  if (loadingPhotos || loadingAwards) {
+    return <p className="text-center text-lg py-20">Loading photos...</p>;
+  }
 
   return (
     <div className="min-h-screen relative overflow-hidden" style={{

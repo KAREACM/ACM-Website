@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Photo } from "../models/photo";
+import { Photo } from "../models/Photo";
 
 export const getPhotos = async (req: Request, res: Response) => {
   try {
