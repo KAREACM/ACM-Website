@@ -26,9 +26,9 @@ const EventSchema: Schema = new Schema<IEvent>(
     title: { type: String, required: true },
     description: { type: String, required: true },
     images: { type: [String], required: true },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
-    venue: { type: String, required: true },
+    startDate: { type: Date},
+    endDate: { type: Date},
+    venue: { type: String},
     eventType: {
       type: String,
       enum: ["hackathon", "workshop", "talk", "seminar", "other"],
@@ -43,9 +43,9 @@ const EventSchema: Schema = new Schema<IEvent>(
     },
     tags: { type: [String], default: [] },
     registrations: { type: Number, default: 0 },
-    maxCapacity: { type: Number, required: true },
+    maxCapacity: { type: Number },
     organizers: { type: [String], default: [] },
-    visibility: { type: String, enum: ["internal", "external"], required: true },
+    visibility: { type: String, enum: ["internal", "external"] },
   },
   { timestamps: true }
 );
