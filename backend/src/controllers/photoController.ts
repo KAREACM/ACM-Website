@@ -12,10 +12,9 @@ export const getPhotos = async (req: Request, res: Response) => {
 
 export const createPhoto = async (req: Request, res: Response) => {
   try {
-    const { url, alt } = req.body;
-    const photo = new Photo({ url, alt });
-    await photo.save();
-    res.status(201).json(photo);
+    const photosData = Array.isArray(req.body) ? req.body : [req.body];
+    const photos = await Photo.insertMany(photosData);
+    res.status(201).json(photos);
   } catch (err) {
     res.status(400).json({ error: (err as Error).message });
   }
