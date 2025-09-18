@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 
-
 interface TeamMemberCardProps {
   name?: string;
   designation?: string;
@@ -20,7 +19,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   showProfileButton = false
 }) => {
   return (
-    <div className="w-64 h-80 overflow-visible" style={{perspective: '1000px'}}>
+    <div className="w-64 h-80 overflow-visible" style={{ perspective: '1000px' }}>
       <style jsx>{`
         .card-container {
           transform-style: preserve-3d;
@@ -31,9 +30,24 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         }
         .card-face {
           backface-visibility: hidden;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+        }
+        .card-front {
+          pointer-events: auto;
+        }
+        .card-container:hover .card-front {
+          pointer-events: none; /* disable front when flipped */
         }
         .card-back {
           transform: rotateY(180deg);
+          pointer-events: none;
+        }
+        .card-container:hover .card-back {
+          pointer-events: auto; /* enable back when visible */
         }
         .rotating-border::before {
           content: '';
@@ -50,10 +64,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           100% { transform: rotate(360deg); }
         }
       `}</style>
-      
+
       <div className="card-container w-full h-full relative">
         {/* Front Face - Member Image */}
-        <div className="card-face absolute w-full h-full bg-white rounded-xl overflow-hidden shadow-2xl rotating-border">
+        <div className="card-face card-front bg-white rounded-xl overflow-hidden shadow-2xl rotating-border">
           <img 
             src={image} 
             alt={name}
@@ -66,8 +80,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         </div>
 
         {/* Back Face - Member Details */}
-        <div className="card-face card-back absolute w-full h-full bg-white rounded-xl overflow-hidden shadow-2xl rotating-border">
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+        <div className="card-face card-back bg-white rounded-xl overflow-hidden shadow-2xl rotating-border flex items-center justify-center">
+          <div className="flex flex-col items-center justify-center p-6 text-center">
             {/* Profile Icon */}
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
               <svg 
@@ -88,7 +102,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
             {/* Buttons */}
             <div className="flex items-center justify-center gap-3">
               {/* LinkedIn Icon */}
-              <a href={linkedin} target="_blank" rel="noopener noreferrer" className="bg-gray-100 hover:bg-gray-200 p-3 rounded-full transition-colors duration-200">
+              <a href={linkedin} target="_blank" rel="noopener noreferrer" 
+                className="bg-gray-100 hover:bg-gray-200 p-3 rounded-full transition-colors duration-200">
                 <svg 
                   className="w-5 h-5 text-black" 
                   fill="currentColor" 
@@ -98,9 +113,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
                 </svg>
               </a>
 
-              {/* Personal Profile Button (Only for Faculty) */}
+              {/* Personal Profile Button */}
               {showProfileButton && (
-                <a href={profileLink} target="_blank" rel="noopener noreferrer" className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200">
+                <a href={profileLink} target="_blank" rel="noopener noreferrer" 
+                  className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-full text-xs font-medium transition-colors duration-200">
                   Personal Profile
                 </a>
               )}
@@ -112,7 +128,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   );
 };
 
-// Enhanced Section Header Component
+// Section Header
 const SectionHeader: React.FC<{title: string, subtitle?: string}> = ({title, subtitle}) => (
   <div className="text-center mb-8 relative">
     <div className="absolute inset-0 flex items-center justify-center opacity-5">
@@ -130,13 +146,13 @@ const SectionHeader: React.FC<{title: string, subtitle?: string}> = ({title, sub
   </div>
 );
 
-// Enhanced Demo Component
+// Team Directory
 export default function TeamDirectory() {
   const [teams, setTeams] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5005/api/teams") // 🔑 fetch from backend
+    fetch("http://localhost:5005/api/teams")
       .then(res => res.json())
       .then(data => {
         setTeams(data);
@@ -148,7 +164,6 @@ export default function TeamDirectory() {
       });
   }, []);
 
-  // Group members by category
   const groupedTeams = teams.reduce((acc: any, member: any) => {
     if (!acc[member.category]) acc[member.category] = [];
     acc[member.category].push(member);
@@ -161,7 +176,6 @@ export default function TeamDirectory() {
     <div className="min-h-screen relative overflow-hidden" style={{
       background: 'linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f1f5f9 100%)'
     }}>
-      {/* MAIN HEADER */}
       <div className="relative p-8" style={{ zIndex: 10 }}>
         <div className="text-center mb-12 relative">
           <h1 className="text-5xl font-black mb-4 text-gray-800">Meet Our Wonderful Dream Team ✨</h1>
@@ -172,7 +186,6 @@ export default function TeamDirectory() {
           </p>
         </div>
 
-        {/* DYNAMIC SECTIONS */}
         {Object.keys(groupedTeams).map((category) => (
           <section key={category} className="mb-20">
             <SectionHeader title={category} />
