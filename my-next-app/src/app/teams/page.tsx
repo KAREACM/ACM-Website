@@ -88,7 +88,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
             {/* Buttons */}
             <div className="flex items-center justify-center gap-3">
               {/* LinkedIn Icon */}
-              <a href={`https://${linkedin}`} target="_blank" rel="noopener noreferrer" className="bg-gray-100 hover:bg-gray-200 p-3 rounded-full transition-colors duration-200">
+              <a href={linkedin} target="_blank" rel="noopener noreferrer" className="bg-gray-100 hover:bg-gray-200 p-3 rounded-full transition-colors duration-200">
                 <svg 
                   className="w-5 h-5 text-black" 
                   fill="currentColor" 
