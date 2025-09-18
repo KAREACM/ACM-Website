@@ -14,7 +14,7 @@ interface TeamMemberCardProps {
 const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   name = "Team Member",
   designation = "Position",
-  linkedin = "linkedin.com/in/profile",
+  linkedin = "https://linkedin.com/in/profile",
   image = "https://wallpapers.com/images/hd/professional-profile-pictures-1500-x-2100-bvjgzg0cwa8r051t.jpg",
   profileLink = "#",
   showProfileButton = false
