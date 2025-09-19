@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Award, Trophy, Star, Medal } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Award as Awardicon , Trophy, Star, Medal } from 'lucide-react';
 
 interface Photo {
   id: number;
@@ -9,7 +9,7 @@ interface Photo {
 }
 
 interface Award {
-  id: number;
+  _id: number;
   image: string;
   title: string;
   description: string;
@@ -81,11 +81,11 @@ const GalleryPage: React.FC = () => {
 
   const getCategoryIcon = (category: string) => {
     switch(category.toLowerCase()) {
-      case 'excellence': return <Award size={20} className="text-sky-500" />;
+      case 'excellence': return <Awardicon size={20} className="text-sky-500" />;
       case 'innovation': return <Star size={20} className="text-sky-500" />;
       case 'team': return <Trophy size={20} className="text-sky-500" />;
       case 'leadership': return <Medal size={20} className="text-sky-500" />;
-      default: return <Award size={20} className="text-sky-500" />;
+      default: return <Awardicon size={20} className="text-sky-500" />;
     }
   };
   if (loadingPhotos || loadingAwards) {
@@ -138,7 +138,8 @@ const GalleryPage: React.FC = () => {
       />
       
       {/* Dark Overlay for better text visibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/30"></div>
+
       
       {/* Header Content Overlay - Centered */}
       <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 z-20">
@@ -184,7 +185,7 @@ const GalleryPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {awards.map((award) => (
                 <div
-                  key={award.id}
+                  key={award._id}
                   className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group"
                 >
                   <div className="relative overflow-hidden">
