@@ -3,8 +3,11 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 export const metadata = {
-  title: "KARE ACM",
+  title: "KARE ACM Student Chapter",
   description: "KARE ACM Student Chapter Website",
+  icons: {
+    icon: "/acm-logo.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
