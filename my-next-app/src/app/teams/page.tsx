@@ -68,6 +68,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       <div className="card-container w-full h-full relative">
         {/* Front Face - Member Image */}
         <div className="card-face card-front bg-white rounded-xl overflow-hidden shadow-2xl rotating-border">
+          // eslint-disable-next-line @next/next/no-img-element
           <img 
             src={image} 
             alt={name}
