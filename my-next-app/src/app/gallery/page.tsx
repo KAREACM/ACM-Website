@@ -23,7 +23,7 @@ const GalleryPage: React.FC = () => {
   const [loadingPhotos, setLoadingPhotos] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5005/api/photos")   // ✅ fetch photos from backend
+    fetch("https://kare-acm-website.onrender.com/api/photos")   // ✅ fetch photos from backend
       .then((res) => res.json())
       .then((data) => {
         setPhotos(data);

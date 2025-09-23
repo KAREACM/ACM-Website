@@ -152,7 +152,7 @@ export default function TeamDirectory() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5005/api/teams")
+    fetch("https://kare-acm-website.onrender.com/api/teams")
       .then(res => res.json())
       .then(data => {
         setTeams(data);

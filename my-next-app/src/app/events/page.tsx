@@ -373,7 +373,7 @@ const EventsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // API configuration - adjust this to match your backend URL
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5005/api';
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://kare-acm-website.onrender.com/api';
 
   // Fetch events from backend
   const fetchEvents = async () => {
