@@ -1,7 +1,7 @@
 'use client';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-
+import Image from 'next/image'
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Calendar, 
@@ -13,8 +13,6 @@ import {
   ChevronDown, 
   ChevronUp,
   Users,
-  Tag,
-  DollarSign,
   Loader2,
   AlertCircle
 } from 'lucide-react';
@@ -112,7 +110,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       {/* Image with overlay gradient and badges */}
       {event.images && event.images.length > 0 && (
       <div className="relative h-48 overflow-hidden">
-        <img 
+        <Image
           src={event.images[currentImage]} 
           alt={event.title || 'Event image'} 
           className={`w-full h-full object-cover transition-transform duration-700 ${
@@ -154,8 +152,8 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
           </>
         )}
           
-          // {/* ===== UPDATE START: Conditional Elements on Image ===== */}
-          // {/* Each element on the image is now conditional */}
+          {/* ===== UPDATE START: Conditional Elements on Image ===== */}
+          {/* Each element on the image is now conditional */}
           
           {event.eventType && (
             <div className={`absolute top-0 left-0 w-full h-1.5 ${getEventTypeColor(event.eventType)}`}></div>

@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image'
 
 interface TeamMemberCardProps {
   name?: string;
@@ -8,6 +9,17 @@ interface TeamMemberCardProps {
   image?: string;
   profileLink?: string;
   showProfileButton?: boolean;
+}
+
+interface TeamMember {
+  _id: string;
+  name: string;
+  designation: string;
+  linkedin?: string;
+  image?: string;
+  profileLink?: string;
+  showProfileButton?: boolean;
+  category: string;  // Since you use member.category for grouping
 }
 
 const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
@@ -68,8 +80,7 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       <div className="card-container w-full h-full relative">
         {/* Front Face - Member Image */}
         <div className="card-face card-front bg-white rounded-xl overflow-hidden shadow-2xl rotating-border">
-          // eslint-disable-next-line @next/next/no-img-element
-          <img 
+          <Image
             src={image} 
             alt={name}
             className="w-full h-full object-cover"
@@ -149,7 +160,7 @@ const SectionHeader: React.FC<{title: string, subtitle?: string}> = ({title, sub
 
 // Team Directory
 export default function TeamDirectory() {
-  const [teams, setTeams] = useState<any[]>([]);
+  const [teams, setTeams] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -165,11 +176,11 @@ export default function TeamDirectory() {
       });
   }, []);
 
-  const groupedTeams = teams.reduce((acc: any, member: any) => {
-    if (!acc[member.category]) acc[member.category] = [];
-    acc[member.category].push(member);
-    return acc;
-  }, {});
+  const groupedTeams = teams.reduce((acc: Record<string, TeamMember[]>, member: TeamMember) => {
+  if (!acc[member.category]) acc[member.category] = [];
+  acc[member.category].push(member);
+  return acc;
+  }, {} as Record<string, TeamMember[]>);
 
   if (loading) return <p className="text-center text-lg">Loading team members...</p>;
 
@@ -191,7 +202,7 @@ export default function TeamDirectory() {
           <section key={category} className="mb-20">
             <SectionHeader title={category} />
             <div className="flex flex-wrap gap-10 justify-center">
-              {groupedTeams[category].map((member: any) => (
+              {groupedTeams[category].map((member: TeamMember) => (
                 <TeamMemberCard
                   key={member._id}
                   name={member.name}

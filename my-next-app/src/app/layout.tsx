@@ -1,6 +1,8 @@
 import "./globals.css";
 import Link from "next/link";
 import { ReactNode } from "react";
+import Image from 'next/image'
+
 
 export const metadata = {
   title: "KARE ACM Student Chapter",
@@ -21,7 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <div className="container mx-auto flex justify-between items-center px-6 py-4">
               {/* Logo */}
               <Link href="/" className="flex items-center space-x-3 group">
-                <img
+                <Image
                   src="/acm-logo.svg"
                   alt="KARE ACM Logo"
                   className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
@@ -75,7 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 {/* Logo and Description */}
                 <div className="md:col-span-2">
                   <div className="flex items-center space-x-3 mb-4">
-                    <img
+                    <Image
                       src="/acm-logo.svg"
                       alt="KARE ACM Logo"
                       className="h-10 w-auto"

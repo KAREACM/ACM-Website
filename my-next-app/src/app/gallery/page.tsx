@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Award as Awardicon , Trophy, Star, Medal } from 'lucide-react';
+import { Award as Awardicon , Trophy, Star, Medal } from 'lucide-react';
+import Image from 'next/image'
 
 interface Photo {
   id: number;
@@ -40,7 +41,7 @@ const GalleryPage: React.FC = () => {
   const [loadingAwards, setLoadingAwards] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5005/api/awards")
+    fetch("https://kare-acm-website.onrender.com/api/awards")
       .then((res) => res.json())
       .then((data) => {
         setAwards(data);
@@ -131,7 +132,7 @@ const GalleryPage: React.FC = () => {
   <div className="max-w-8xl mx-auto">
     <div className="relative h-[85vh] rounded-2xl overflow-hidden shadow-2xl bg-black">
       {/* Background Image */}
-      <img
+      <Image
         src={photos[currentPhotoIndex].url}
         alt={photos[currentPhotoIndex].alt}
         className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
@@ -189,7 +190,7 @@ const GalleryPage: React.FC = () => {
                   className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group"
                 >
                   <div className="relative overflow-hidden">
-                    <img
+                    <Image
                       src={award.image}
                       alt={award.title}
                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"

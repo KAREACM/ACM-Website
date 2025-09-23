@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState, useMemo, useEffect } from "react"
-import { Search, Calendar, User, ArrowRight, X, Filter } from "lucide-react"
+import { Search, ArrowRight, X, Filter } from "lucide-react"
+import Image from 'next/image'
 
 // Types based on SmoothUI structure
 interface Card {
@@ -53,7 +54,7 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
             <div className="flex">
               {/* Image */}
               <div className="w-52 h-36 flex-shrink-0 relative">
-                <img
+                <Image
                   src={card.image}
                   alt={card.title}
                   className="w-full h-full object-cover rounded-l-xl group-hover:scale-110 transition-transform duration-700"
@@ -98,7 +99,7 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <p className="text-gray-600 leading-relaxed mb-6">
-                          Click "Read More" to explore this topic in detail on Medium and dive deeper into the content.
+                          Click &quot;Read More&quot; to explore this topic in detail on Medium and dive deeper into the content.
                         </p>
                         
                         {/* Tags */}

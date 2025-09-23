@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image'
 
 interface StatCardProps {
   number: string;
@@ -35,7 +36,7 @@ const ACMKareSections: React.FC = () => {
               {/* Logo Section */}
               <div className="flex items-center justify-center lg:justify-start mb-8 gap-4">
                 <div className="w-24 h-24">
-                  <img 
+                  <Image
                     src="/acm-logo.svg" 
                     alt="KARE ACM Logo" 
                     className="w-full h-full object-contain"
@@ -77,7 +78,7 @@ const ACMKareSections: React.FC = () => {
             <div className="space-y-4">
               {/* Top image (img3) */}
               <div className="bg-gradient-to-br from-blue-200 to-blue-300 rounded-2xl h-64 overflow-hidden shadow-lg">
-                <img 
+                <Image
                   src="/HOME/img3.png" 
                   alt="Students collaborating" 
                   className="w-full h-full object-cover"
@@ -87,14 +88,14 @@ const ACMKareSections: React.FC = () => {
               {/* Bottom row with img2 and img1 */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gradient-to-br from-cyan-200 to-cyan-300 rounded-2xl h-40 overflow-hidden shadow-lg">
-                  <img 
+                  <Image
                     src="/HOME/img2.png" 
                     alt="Workshop session" 
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="bg-gradient-to-br from-yellow-200 to-yellow-300 rounded-2xl h-40 overflow-hidden shadow-lg">
-                  <img 
+                  <Image
                     src="/HOME/img1.png" 
                     alt="Presentation" 
                     className="w-full h-full object-cover"
@@ -162,7 +163,7 @@ const ACMKareSections: React.FC = () => {
               About <span className="text-blue-600">ACM KARE</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              At ACM KARE, we're more than just a student chapter—we're a community of innovators, problem solvers, and tech 
+              At ACM KARE, we&apos;re more than just a student chapter—we&apos;re a community of innovators, problem solvers, and tech 
               enthusiasts united by a passion for learning and collaboration.
             </p>
           </div>
@@ -171,7 +172,7 @@ const ACMKareSections: React.FC = () => {
             {/* Why We Are */}
             <div className="space-y-6">
               <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl h-60 overflow-hidden shadow-lg">
-                <img 
+                <Image
                   src="HOME/img4.png" 
                   alt="VR Workshop" 
                   className="w-full h-64 object-cover"
@@ -181,14 +182,14 @@ const ACMKareSections: React.FC = () => {
               <h3 className="text-3xl font-bold text-gray-900">Why We Are</h3>
               <p className="text-lg text-gray-600 leading-relaxed">
                 We are here to bridge the gap between classroom theory and real-world tech. We believe every student deserves a space to explore, build, 
-                and lead. We are driven by the idea that collaboration sparks transformation—and we're building that spark every day.
+                and lead. We are driven by the idea that collaboration sparks transformation—and we&apos;re building that spark every day.
               </p>
             </div>
 
             {/* Our Goals */}
             <div className="space-y-6">
               <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl overflow-hidden shadow-lg">
-                <img 
+                <Image
                   src="/HOME/img5.png" 
                   alt="Tech presentation" 
                   className="w-full h-48 object-cover"

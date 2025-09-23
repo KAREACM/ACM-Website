@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image'
 
 const AboutUsPage: React.FC = () => {
   return (
@@ -63,7 +64,7 @@ const AboutUsPage: React.FC = () => {
                 <div className="w-24 h-1.5 bg-gradient-to-r from-sky-400 to-sky-500 rounded-full mx-auto mb-6"></div>
                 <p className="text-sky-500 text-lg font-semibold max-w-2xl mx-auto leading-relaxed">
                   The Association for Computing Machinery (ACM) stands at the
-                  forefront of the computing world as world's largest educational
+                  forefront of the computing world as world&apos;s largest educational
                   and scientific computing society
                 </p>
               </div>
@@ -76,21 +77,21 @@ const AboutUsPage: React.FC = () => {
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-center items-center gap-6 flex-wrap">
               <div className="w-80 h-70 rounded-2xl overflow-hidden shadow-lg transform rotate-3 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                <img
+                <Image
                   src="/HOME/img7.JPG"
                   alt="Woman working at desk"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="w-80 h-70 rounded-2xl overflow-hidden shadow-lg transform -rotate-2 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                <img
+                <Image
                   src="/HOME/img6.png"
                   alt="Woman reading"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
               <div className="w-80 h-70 rounded-2xl overflow-hidden shadow-lg transform rotate-1 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                <img
+                <Image
                   src="HOME/img8.png"
                   alt="Team meeting"
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
@@ -147,7 +148,7 @@ const AboutUsPage: React.FC = () => {
               {/* Image with Quote */}
               <div className="relative">
                 <div className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-80">
-                  <img
+                  <Image
                     src="HOME/img7.JPG"
                     alt="Socialy Founder"
                     className="w-full h-full object-cover"
@@ -156,7 +157,7 @@ const AboutUsPage: React.FC = () => {
                 </div>
                 <div className="mt-6 text-center">
                   <p className="text-xl font-black text-gray-800 mb-2">
-                    "Making an impact, together"
+                    &quot;Making an impact, together&quot;
                   </p>
                 </div>
               </div>
@@ -180,7 +181,7 @@ const AboutUsPage: React.FC = () => {
                     Bridging academia and industry, we unite theory and
                     application, nurturing holistic professionals. Through
                     teamwork, leadership, and ethics, we develop individuals who
-                    grasp work's broader impact, blending technical prowess with a
+                    grasp work&apos;s broader impact, blending technical prowess with a
                     wider perspective for a more comprehensive approach.
                   </p>
                 </div>

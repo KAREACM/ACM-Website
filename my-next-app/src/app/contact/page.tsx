@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef} from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import React, { useState} from 'react';
+import { Mail, MapPin, Send } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -220,8 +220,12 @@ const ContactPage: React.FC = () => {
                          formElement.appendChild(input);
                        });
                        
-                       const event = { preventDefault: () => {}, currentTarget: formElement };
-                       await handleSubmit(event as any);
+                      const event = {
+                        preventDefault: () => {},
+                        currentTarget: formElement,
+                      } as React.FormEvent<HTMLFormElement>;
+
+                      await handleSubmit(event); 
                      }}
                       className="w-full px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 text-sm font-bold shadow-xl hover:shadow-2xl transform hover:scale-105 border-2 border-blue-400 hover:border-blue-300 flex items-center justify-center space-x-2"
                       style={{
