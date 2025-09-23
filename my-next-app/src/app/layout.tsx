@@ -24,6 +24,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               {/* Logo */}
               <Link href="/" className="flex items-center space-x-3 group">
                 <Image
+                  width={0} // or omit width but handle height similarly
+                  height={0}
+                  unoptimized
                   src="/acm-logo.svg"
                   alt="KARE ACM Logo"
                   className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
@@ -78,6 +81,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 <div className="md:col-span-2">
                   <div className="flex items-center space-x-3 mb-4">
                     <Image
+                      width={0} // or omit width but handle height similarly
+                      height={0}
+                      unoptimized
                       src="/acm-logo.svg"
                       alt="KARE ACM Logo"
                       className="h-10 w-auto"

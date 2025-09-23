@@ -81,6 +81,9 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
         {/* Front Face - Member Image */}
         <div className="card-face card-front bg-white rounded-xl overflow-hidden shadow-2xl rotating-border">
           <Image
+            width={0} // or omit width but handle height similarly
+            height={0}
+            unoptimized
             src={image} 
             alt={name}
             className="w-full h-full object-cover"

@@ -55,6 +55,9 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
               {/* Image */}
               <div className="w-52 h-36 flex-shrink-0 relative">
                 <Image
+                  width={0} // or omit width but handle height similarly
+                  height={0}
+                  unoptimized
                   src={card.image}
                   alt={card.title}
                   className="w-full h-full object-cover rounded-l-xl group-hover:scale-110 transition-transform duration-700"

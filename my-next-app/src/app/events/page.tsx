@@ -111,6 +111,9 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       {event.images && event.images.length > 0 && (
       <div className="relative h-48 overflow-hidden">
         <Image
+          width={0} // or omit width but handle height similarly
+          height={0}
+          unoptimized
           src={event.images[currentImage]} 
           alt={event.title || 'Event image'} 
           className={`w-full h-full object-cover transition-transform duration-700 ${

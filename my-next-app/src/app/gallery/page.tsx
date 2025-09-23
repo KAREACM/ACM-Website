@@ -133,6 +133,9 @@ const GalleryPage: React.FC = () => {
     <div className="relative h-[85vh] rounded-2xl overflow-hidden shadow-2xl bg-black">
       {/* Background Image */}
       <Image
+        width={0} // or omit width but handle height similarly
+        height={0}
+        unoptimized
         src={photos[currentPhotoIndex].url}
         alt={photos[currentPhotoIndex].alt}
         className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
@@ -191,6 +194,9 @@ const GalleryPage: React.FC = () => {
                 >
                   <div className="relative overflow-hidden">
                     <Image
+                      width={0} // or omit width but handle height similarly
+                      height={0}
+                      unoptimized
                       src={award.image}
                       alt={award.title}
                       className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
