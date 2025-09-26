@@ -132,14 +132,20 @@ const GalleryPage: React.FC = () => {
   <div className="max-w-8xl mx-auto">
     <div className="relative h-[85vh] rounded-2xl overflow-hidden shadow-2xl bg-black">
       {/* Background Image */}
-      <Image
-        width={0} // or omit width but handle height similarly
-        height={0}
-        unoptimized
-        src={photos[currentPhotoIndex].url}
-        alt={photos[currentPhotoIndex].alt}
-        className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
-      />
+      {photos && photos.length > 0 ? (
+        <Image
+          width={0}
+          height={0}
+          unoptimized
+          src={photos[currentPhotoIndex % photos.length].url}
+          alt={photos[currentPhotoIndex % photos.length].alt}
+          className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+        />
+      ) : (
+        <div className="flex items-center justify-center h-full text-white">
+          No images available
+        </div>
+      )}
       
       {/* Dark Overlay for better text visibility */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/30"></div>
