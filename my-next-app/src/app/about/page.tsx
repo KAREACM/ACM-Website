@@ -76,34 +76,34 @@ const AboutUsPage: React.FC = () => {
         <div className="px-8 pb-12">
           <div className="max-w-7xl mx-auto">
             <div className="flex justify-center items-center gap-6 flex-wrap">
-              <div className="w-80 h-70 rounded-2xl overflow-hidden shadow-lg transform rotate-3 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div className="relative w-80 h-[17.5rem] rounded-2xl overflow-hidden shadow-lg transform rotate-3 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <Image
-                  width={0} // or omit width but handle height similarly
-                  height={0}
+                  fill
+                  sizes="320px"
                   unoptimized
                   src="/HOME/img7.JPG"
                   alt="Woman working at desk"
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                  className="object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
-              <div className="w-80 h-70 rounded-2xl overflow-hidden shadow-lg transform -rotate-2 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div className="relative w-80 h-[17.5rem] rounded-2xl overflow-hidden shadow-lg transform -rotate-2 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <Image
-                  width={0} // or omit width but handle height similarly
-                  height={0}
+                  fill
+                  sizes="320px"
                   unoptimized
                   src="/HOME/img6.png"
                   alt="Woman reading"
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                  className="object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
-              <div className="w-80 h-70 rounded-2xl overflow-hidden shadow-lg transform rotate-1 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <div className="relative w-80 h-[17.5rem] rounded-2xl overflow-hidden shadow-lg transform rotate-1 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <Image
-                  width={0} // or omit width but handle height similarly
-                  height={0}
+                  fill
+                  sizes="320px"
                   unoptimized
-                  src="HOME/img8.png"
+                  src="/HOME/img8.png"
                   alt="Team meeting"
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                  className="object-cover hover:scale-110 transition-transform duration-700"
                 />
               </div>
 
@@ -156,14 +156,14 @@ const AboutUsPage: React.FC = () => {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Image with Quote */}
               <div className="relative">
-                <div className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-80">
+                <div className="relative bg-white/80 backdrop-blur-sm border border-sky-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 h-80">
                   <Image
-                    width={0} // or omit width but handle height similarly
-                    height={0}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     unoptimized
-                    src="HOME/img7.JPG"
+                    src="/HOME/img7.JPG"
                     alt="Socialy Founder"
-                    className="w-full h-full object-cover"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40"></div>
                 </div>

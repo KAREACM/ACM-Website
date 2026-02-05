@@ -80,14 +80,16 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
       <div className="card-container w-full h-full relative">
         {/* Front Face - Member Image */}
         <div className="card-face card-front bg-white rounded-xl overflow-hidden shadow-2xl rotating-border">
-          <Image
-            width={0} // or omit width but handle height similarly
-            height={0}
-            unoptimized
-            src={image} 
-            alt={name}
-            className="w-full h-full object-cover"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              fill
+              sizes="256px"
+              unoptimized
+              src={image} 
+              alt={name}
+              className="object-cover"
+            />
+          </div>
           <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white/95 to-transparent z-20">
             <h3 className="text-gray-800 text-lg font-bold mb-1">{name}</h3>
             <p className="text-gray-500 text-sm opacity-90">Hover to see details</p>
@@ -167,7 +169,7 @@ export default function TeamDirectory() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://kare-acm-website.onrender.com/api/teams")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/teams`)
       .then(res => res.json())
       .then(data => {
         setTeams(data);

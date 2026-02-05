@@ -24,7 +24,7 @@ const GalleryPage: React.FC = () => {
   const [loadingPhotos, setLoadingPhotos] = useState(true);
 
   useEffect(() => {
-    fetch("https://kare-acm-website.onrender.com/api/photos")   // ✅ fetch photos from backend
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/photos`)   // ✅ fetch photos from backend
       .then((res) => res.json())
       .then((data) => {
         setPhotos(data);
@@ -41,7 +41,7 @@ const GalleryPage: React.FC = () => {
   const [loadingAwards, setLoadingAwards] = useState(true);
 
   useEffect(() => {
-    fetch("https://kare-acm-website.onrender.com/api/awards")
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/awards`)
       .then((res) => res.json())
       .then((data) => {
         setAwards(data);
@@ -54,10 +54,10 @@ const GalleryPage: React.FC = () => {
   }, []);
 
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState<number>(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  const isAutoPlaying = true;
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || photos.length === 0) return;
     
     const interval = setInterval(() => {
       setCurrentPhotoIndex((prevIndex: number) => 
@@ -67,18 +67,6 @@ const GalleryPage: React.FC = () => {
 
     return () => clearInterval(interval);
   }, [photos.length, isAutoPlaying]);
-
-  const nextPhoto = () => {
-    setCurrentPhotoIndex(prevIndex => 
-      prevIndex === photos.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevPhoto = () => {
-    setCurrentPhotoIndex(prevIndex => 
-      prevIndex === 0 ? photos.length - 1 : prevIndex - 1
-    );
-  };
 
   const getCategoryIcon = (category: string) => {
     switch(category.toLowerCase()) {
@@ -134,12 +122,13 @@ const GalleryPage: React.FC = () => {
       {/* Background Image */}
       {photos && photos.length > 0 ? (
         <Image
-          width={0}
-          height={0}
+          fill
+          sizes="100vw"
           unoptimized
           src={photos[currentPhotoIndex % photos.length].url}
           alt={photos[currentPhotoIndex % photos.length].alt}
-          className="w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+          className="object-cover transition-opacity duration-1000 ease-in-out"
+          priority
         />
       ) : (
         <div className="flex items-center justify-center h-full text-white">
@@ -198,14 +187,14 @@ const GalleryPage: React.FC = () => {
                   key={award._id}
                   className="bg-white/80 backdrop-blur-sm border border-sky-200 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group"
                 >
-                  <div className="relative overflow-hidden">
+                  <div className="relative h-48 overflow-hidden">
                     <Image
-                      width={0} // or omit width but handle height similarly
-                      height={0}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       unoptimized
                       src={award.image}
                       alt={award.title}
-                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700"
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                     

@@ -35,14 +35,15 @@ const ACMKareSections: React.FC = () => {
             <div className="space-y-8">
               {/* Logo Section */}
               <div className="flex items-center justify-center lg:justify-start mb-8 gap-4">
-                <div className="w-24 h-24">
+                <div className="relative w-24 h-24">
                   <Image
-                    width={0} // or omit width but handle height similarly
-                    height={0}
+                    fill
+                    sizes="96px"
                     unoptimized
                     src="/acm-logo.svg" 
                     alt="KARE ACM Logo" 
-                    className="w-full h-full object-contain"
+                    className="object-contain"
+                    priority
                   />
                 </div>
                 <div className="text-left">
@@ -64,15 +65,21 @@ const ACMKareSections: React.FC = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 mt-12">
-                <a href="https://www.acm.org/membership">
-                <button className="px-8 py-4 bg-white bg-opacity-20 backdrop-blur-md text-black font-semibold rounded-xl hover:bg-opacity-30 transition-all duration-300 shadow-lg hover:shadow-xl border border-white border-opacity-30 backdrop-saturate-150">
+                <a
+                  href="https://www.acm.org/membership"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-4 bg-white bg-opacity-20 backdrop-blur-md text-black font-semibold rounded-xl hover:bg-opacity-30 transition-all duration-300 shadow-lg hover:shadow-xl border border-white border-opacity-30 backdrop-saturate-150 text-center"
+                >
                   Student Membership
-                </button>
                 </a>
-                <a href="https://www.acm.org/membership">
-                <button className="px-8 py-4 bg-white bg-opacity-20 backdrop-blur-md text-black font-semibold rounded-xl hover:bg-opacity-30 transition-all duration-300 shadow-lg hover:shadow-xl border border-white border-opacity-30 backdrop-saturate-150">
+                <a
+                  href="https://www.acm.org/membership"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-4 bg-white bg-opacity-20 backdrop-blur-md text-black font-semibold rounded-xl hover:bg-opacity-30 transition-all duration-300 shadow-lg hover:shadow-xl border border-white border-opacity-30 backdrop-saturate-150 text-center"
+                >
                   Professional Membership
-                </button>
                 </a>
               </div>
             </div>
@@ -80,37 +87,38 @@ const ACMKareSections: React.FC = () => {
             {/* Right Images Grid */}
             <div className="space-y-4">
               {/* Top image (img3) */}
-              <div className="bg-gradient-to-br from-blue-200 to-blue-300 rounded-2xl h-64 overflow-hidden shadow-lg">
+              <div className="relative bg-gradient-to-br from-blue-200 to-blue-300 rounded-2xl h-64 overflow-hidden shadow-lg">
                 <Image
-                  width={0} // or omit width but handle height similarly
-                  height={0}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   unoptimized
                   src="/HOME/img3.png" 
                   alt="Students collaborating" 
-                  className="w-full h-full object-cover"
+                  className="object-cover"
+                  priority
                 />
               </div>
               
               {/* Bottom row with img2 and img1 */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-br from-cyan-200 to-cyan-300 rounded-2xl h-40 overflow-hidden shadow-lg">
+                <div className="relative bg-gradient-to-br from-cyan-200 to-cyan-300 rounded-2xl h-40 overflow-hidden shadow-lg">
                   <Image
-                    width={0} // or omit width but handle height similarly
-                    height={0}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
                     unoptimized
                     src="/HOME/img2.png" 
                     alt="Workshop session" 
-                    className="w-full h-full object-cover"
+                    className="object-cover"
                   />
                 </div>
-                <div className="bg-gradient-to-br from-yellow-200 to-yellow-300 rounded-2xl h-40 overflow-hidden shadow-lg">
+                <div className="relative bg-gradient-to-br from-yellow-200 to-yellow-300 rounded-2xl h-40 overflow-hidden shadow-lg">
                   <Image
-                    width={0} // or omit width but handle height similarly
-                    height={0}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
                     unoptimized
                     src="/HOME/img1.png" 
                     alt="Presentation" 
-                    className="w-full h-full object-cover"
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -183,14 +191,14 @@ const ACMKareSections: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-20">
             {/* Why We Are */}
             <div className="space-y-6">
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl h-60 overflow-hidden shadow-lg">
+              <div className="relative bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl h-60 overflow-hidden shadow-lg">
                 <Image
-                  width={0} // or omit width but handle height similarly
-                  height={0}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   unoptimized
-                  src="HOME/img4.png" 
+                  src="/HOME/img4.png" 
                   alt="VR Workshop" 
-                  className="w-full h-64 object-cover"
+                  className="object-cover"
                 />
               </div>
               
@@ -203,14 +211,14 @@ const ACMKareSections: React.FC = () => {
 
             {/* Our Goals */}
             <div className="space-y-6">
-              <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl overflow-hidden shadow-lg">
+              <div className="relative bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl h-48 overflow-hidden shadow-lg">
                 <Image
-                  width={0} // or omit width but handle height similarly
-                  height={0}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   unoptimized
                   src="/HOME/img5.png" 
                   alt="Tech presentation" 
-                  className="w-full h-48 object-cover"
+                  className="object-cover"
                 />
               </div>
               
