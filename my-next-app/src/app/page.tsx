@@ -196,7 +196,7 @@ const ACMKareSections: React.FC = () => {
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   unoptimized
-                  src="/HOME/img4.png" 
+                  src="/HOME/img9.jpg" 
                   alt="VR Workshop" 
                   className="object-cover"
                 />
