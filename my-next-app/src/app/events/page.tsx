@@ -2,7 +2,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import Image from 'next/image'
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { 
   Calendar, 
   Clock, 
@@ -111,12 +111,12 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       {event.images && event.images.length > 0 && (
       <div className="relative h-48 overflow-hidden">
         <Image
-          width={0} // or omit width but handle height similarly
-          height={0}
+          fill
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           unoptimized
           src={event.images[currentImage]} 
           alt={event.title || 'Event image'} 
-          className={`w-full h-full object-cover transition-transform duration-700 ${
+          className={`object-cover transition-transform duration-700 ${
             isHovered ? 'scale-110' : 'scale-100'
           }`}
           onError={(e) => {
@@ -374,10 +374,10 @@ const EventsPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // API configuration - adjust this to match your backend URL
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://kare-acm-website.onrender.com/api';
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
   // Fetch events from backend
-  const fetchEvents = async () => {
+  const fetchEvents = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -396,12 +396,12 @@ const EventsPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_BASE_URL]);
 
   // Load events on component mount
   useEffect(() => {
     fetchEvents();
-  }, []);
+  }, [fetchEvents]);
 
   // Memoize the events arrays to prevent infinite re-renders
   const upcomingEvents = useMemo(() => 

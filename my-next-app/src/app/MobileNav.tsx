@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -18,7 +17,7 @@ const navLinks = [
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
-  const router = useRouter();
+  const menuId = 'mobile-nav-menu';
 
   return (
     <div className="md:hidden">
@@ -27,6 +26,8 @@ export default function MobileNav() {
         onClick={() => setOpen(!open)}
         className="p-2 rounded-lg backdrop-blur-xl bg-white/20 border border-white/30 shadow-md text-gray-900 hover:text-blue-600 transition-colors duration-300"
         aria-label="Toggle menu"
+        aria-expanded={open}
+        aria-controls={menuId}
       >
         {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
       </button>
@@ -40,6 +41,7 @@ export default function MobileNav() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25 }}
             className="absolute top-16 right-4 left-4 z-40 rounded-2xl backdrop-blur-xl bg-white/70 border border-white/30 shadow-xl p-4"
+            id={menuId}
           >
             <ul className="flex flex-col space-y-3">
               {navLinks.map((item) => (

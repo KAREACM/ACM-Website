@@ -54,12 +54,12 @@ const ExpandableCards: React.FC<ExpandableCardsProps> = ({
               {/* Image */}
               <div className="w-full sm:w-52 h-48 sm:h-36 flex-shrink-0 relative">
                 <Image
-                  width={0}
-                  height={0}
+                  fill
+                  sizes="(min-width: 640px) 208px, 100vw"
                   unoptimized
                   src={card.image}
                   alt={card.title}
-                  className="w-full h-full object-cover rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none group-hover:scale-110 transition-transform duration-700"
+                  className="object-cover rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-sky-500/10 via-transparent to-sky-500/5 rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none"></div>
               </div>
@@ -160,7 +160,7 @@ const BlogPage: React.FC = () => {
     const fetchBlogs = async () => {
       try {
         const res = await fetch(
-          "https://kare-acm-website.onrender.com/api/blogs"
+          `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/blogs`
         ); // adjust if proxy is set
         const data = await res.json();
         setBlogs(data);
